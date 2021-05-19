@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-	int n, m = 0;
+	int n;
 	cin >> n;
 	
 	int *p = new int[n + 1];
