@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-	int n, m = 0;
+	int n;
 	cin >> n;
 	
 	int *p = new int[n + 1];
@@ -12,10 +12,9 @@ int main() {
 	for(int i = 1; i <= n; i++) {
 		for(int j = 1; j <= i; j++) {
 			d[i] = max(d[i], d[i - j] + p[j]);
-			if(m < d[i]) m = d[i];
 		}
 	}
-	cout << m;
+	cout << d[n];
 	// d[n] = max(d[n- i] + p[i])
 	// 1 <= i <= n
 	return 0;
