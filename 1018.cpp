@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+//입력된 보드에 8*8체스판 을 떼가서 고쳐야하는 정사각형의 최소갯수 구하는 문제
 int main() {
 	int n, m, maxn = 0, minn = 50, maxm = 0, minm  = 50, ren, rem;
 	cin >> n >> m;
