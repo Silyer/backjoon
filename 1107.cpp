@@ -1,4 +1,3 @@
-//반례가 무엇일까...........
 #include <iostream>
 using namespace std;
 int b[10] = {0};
@@ -51,6 +50,7 @@ int main() {
 	cin >> n;
 	cin >> m;
 	for(int i = 0; i < m; i++) cin >> b[i];
+	sort(b, b + m);
 	po_ch = mmm(n, m);
 	gap = abs(n - po_ch);//번호로 칠 수 있는 채널과의 갭
 	gap_c = abs(ch - n); //현재 틀어져있는 채널(100)과의 갭
