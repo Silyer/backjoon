@@ -14,13 +14,13 @@ int main() {
 	}
 	
 	do{
-		bool ok = true;                                     //이 도시를 지나는 데 i -> i를 안지나는가?
+		bool ok = true;                                     //도시 i -> j를 지나는데 비용이 0이 아닌가?
 		int sum = 0;
 		for(int i = 0; i < n - 1; i++) {
-			if(t[a[i]][a[i + 1]] == 0) ok = false;            //i -> i를 지나면 false
+			if(t[a[i]][a[i + 1]] == 0) ok = false;            //i -> j를 지나는데 비용이 0이면 false
 			else sum += t[a[i]][a[i + 1]];                    //1 2 3 4순열일경우 1->2, 2->3, 3->4 비용 합산
 		}
-		if(ok && t[a[n - 1]][a[0]] != 0) {                  //i -> i로 안지나는 조건일 때 4->1로 순회하는 비용까지 더함
+		if(ok && t[a[n - 1]][a[0]] != 0) {                  //i -> j를 지나는데 비용이 0 안지나는 조건일 때 4->1로 순회하는 비용까지 더함
 			sum += t[a[n - 1]][a[0]];
 			if(min > sum)min = sum;
 		}
