@@ -1,28 +1,27 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
 int main() {
-	int n, re = 0;
+	int n, r = 0;
 	cin >> n;
 	while(n--) {
 		string s;
 		cin >> s;
-		int c = 0;
-		for(int i = 0; i < s.size(); i++) {
-			for(int j = 0; j < s.size(); j++) {
-				if(s[i] == s[j]) {
-					if(i == 0)
-						if(i != j && i != j + 1)c++;
-					else if(i == s.size() - 1)
-						if(i != j - 1 && i != j)c++;
-					else
-						if(i != j - 1 && i != j && i != j + 1) c++;
-				}
+		int a[101] = {0}, no[101] = {0};                      //a = 문자열을 int로 치환한 배열, no = 중복이 된 문자열은 1, 외 0
+		bool ok = true;                                       //그룹문자가 아닐 시 false 반환
+		for(int i = 0; i < s.size(); i++) a[i] = s[i] - 'a';
+		for(int i = 1; i < s.size(); i++) {
+			if(a[i] != a[i - 1]) no[i - 1] = 1;                 //연이어 붙어있는 철자를 제외한 중복되는 문자열은 1
+			for(int j = 0; j < i; j++) {
+				if(a[i] == a[j] && no[j] == 1){                   
+					ok = false;
+					break;
+				} 
 			}
 		}
-		//cout << ((s.size() - 3) * s.size()) + 2 << " " << c << " ";
-		if(c == 0 || c == s.size() - 1) re++;
+		if(ok) r++;
 	}
-	cout << re;
+	cout << r;
 	return 0;
 }
