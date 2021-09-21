@@ -1,4 +1,11 @@
 #include <iostream>
+/*치명적인 오류 - 세로 4개인 기둥부터 코드 엉킴.
+0 1 1 0 0 0
+0 0 1 0 0 0
+0 0 1 0 0 0
+0 1 1 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0*/
 using namespace std;
 
 int main() {
@@ -20,20 +27,19 @@ int main() {
 				if(ok) cout << "직선까지 확인" <<'\n';                //debug
 				if(ok) {
 					if(j > 0 && j < 6) {
+						bool okk = false;
 						for(int k = 0; k <= 3; k++) {
 							if(a[i + k][j - 1] == 0) ok = false;
 							else {
 								ok = true;
-								break;
 							}
-						}
-						for(int k = 0; k <= 3; k++) {
-							if(a[i + k][j + 1] == 0) ok = false;
+							if(a[i + k][j + 1] == 0) okk = false;
 							else {
-								ok = true;
-								break;
+								okk = true;
 							}
+							if(ok && okk) break;
 						}
+						
 					}
 					else ok = false;
 				}
@@ -82,6 +88,26 @@ int main() {
 				}
 				if(ok) cout << "직선까지 확인" <<'\n';                //debug
 				if(ok) {
+					/*if(j > 0 && i <= 1) {
+						for(int k = 0; k <= 2; k++) {
+							if(a[i + 2 + k][j - 1] != 0) ok = true;
+							else {
+								ok = false;
+								break;
+							}
+						}
+						if(ok) break;
+					}
+					if(j < 6 && i <= 1) {
+						for(int k = 0; k <= 2; k++) {
+							if(a[i + 2 + k][j + 1] != 0) ok = true;
+							else {
+								ok = false;
+								break;
+							}
+						}
+						if(ok) break;
+					}*/
 					if(j > 0 && j < 6) {
 						if(i > 0 && a[i - 1][j - 1] != 0 && a[i][j - 1] != 0) {
 							for(int k = 0; k <= 2; k++) {
