@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>				//비트마스킹을 이용한 풀이
 #include <string>
 using namespace std;
 
