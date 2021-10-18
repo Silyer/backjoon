@@ -1,37 +1,38 @@
-#include <iostream>       //인접 행렬
+#include <iostream>
+#include <cstring>
 #include <queue>
 using namespace std;
 int n, m, v;
-queue<int> q;
 int e[1001][10001] = {0};
-bool check_d[1001] = {0};
-bool check_b[1001] = {0};
+bool check[1001] = {0};;
 
 void bfs(int x) {
-	q.push(1);
-	check_b[1] = true;  //큐에 넣을 때 방문함을 알림, 시작점
+	queue<int> q;
+	q.push(x);
+	check[1] = true;
 	cout << x << ' ';
 	
 	while(!q.empty()) {
-		int x = q.front();
+		x = q.front();
 		q.pop();
-		
 		for(int i = 1; i <= n; i++) {
-		    if(e[x][i] == 1 && check_b[i] == false) {
+		    if(e[x][i] == 1 && check[i] == 0) {
 		    	q.push(i);
-	 			check_b[i] = true;
-    			cout << i << ' ';
+		    	check[i] = true;
+		    	cout << i << " ";
 			}
 		}
 	}
 }
+
 void dfs(int x) {
-  check_d[x] = true;
+  check[x] = true;
   cout << x << ' ';
   for(int i = 1; i <= n; i++) {
-    if(e[x][i] == 1 && check_d[i] == false) dfs(i);
+    if(e[x][i] == 1 && check[i] == false) dfs(i);
   }
 }
+
 int main() {
 	cin >> n >> m >> v;
 	for(int i = 0; i < m; i++) {
@@ -42,7 +43,7 @@ int main() {
 	}
 	dfs(v);
 	cout << '\n';
+	memset(check, false, sizeof(check));
 	bfs(v);
 	return 0;
 }
-
