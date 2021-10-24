@@ -1,32 +1,26 @@
-#include <iostream>		//보류
+#include <iostream>       //7576 3차원 버전
 #include <queue>
 using namespace std;
-int m, n, h;
+int m, n, h, re = 0;
 int a[101][101][101];
-bool v[101][101][101];
-int dx[] = {1, -1, 0, 0, 0, 0};
+int dx[] = {1, -1, 0, 0, 0, 0};       //상하좌우전후
 int dy[] = {0, 0, 1, -1, 0, 0};
 int dz[] = {0, 0, 0, 0, 1, -1};
-
-int bfs(int x, int y, int z) {
-	v[z][y][x] = true;
-	queue<pair<pair<int,int>,pair<int,int>>> q;
-	q.push({x, y}, {z, 0});
+queue<pair<pair<int, int>, int>> q;
+void bfs() {
 	while(!q.empty()) {
-		int tx = q.front().first.first;
-		int ty = q.front().first.second;
-		int tz = q.front().second;
+		int x = q.front().first.second;   
+		int y = q.front().first.first;
+		int z = q.front().second;
 		q.pop();
 		for(int i = 0; i < 6; i++) {
-			int nx = tx + dx[i];
-			int ny = ty + dy[i];
-			int nz = tz + dz[i];
-			
-			if(nx >= 0 && nx < n && ny >= 0 && ny < n && nz >= 0 && nz < n) {
-				if(!v[nx][ny][nz] && a[nx][ny][nz] == 0) {
-					q.push({nx, ny}, {nz, 0});
-					v[nx][ny][nz] = true;
-					
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			int nz = z + dz[i];
+			if(nx >= 0 && nx < m && ny >= 0 && ny < n && nz >= 0 && nz < h) {
+				if(a[ny][nx][nz] == 0) {          //범위 내에 있고, 익지 않은 토마토라면 익은지 n일 된 토마토에 1일을 더해줌
+					a[ny][nx][nz] = a[y][x][z] + 1;
+					q.push({{ny, nx}, nz});
 				}
 			}
 		}
@@ -34,15 +28,27 @@ int bfs(int x, int y, int z) {
 }
 int main() {
 	cin >> m >> n >> h;
-	for(int i = 0; i < h; i++) {
-		for(int j = 0; j < n; j++) {
-			for(int k = 0; k < m; k++){
-				cin >> a[j][k][i];
-				if(a[j][k][i] == -1) v[j][k][i] = true;
-				else if(a[j][k][i] == 1) q.push({j, k}, {i, 0});
-			} 
+	for(int k = 0; k < h; k++) {
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < m; j++) {
+				cin >> a[i][j][k];
+				if(a[i][j][k] == 1) q.push({{i, j}, k});      //특정 장소에 익은 토마토가 있을 경우 큐에 삽입
+			}
+		}
+	}
+	bfs();
+	for(int k = 0; k < h; k++) {
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < m; j++) {
+				if(a[i][j][k] == 0) {       //탐색 이후로도 익지 않은 토마토가 있다면 -1 출력
+					cout << -1;
+					return 0;
+				}
+				if(re < a[i][j][k]) re = a[i][j][k];
+			}
 		}
 	}
 
+	cout << re - 1;
 	return 0;
 }
